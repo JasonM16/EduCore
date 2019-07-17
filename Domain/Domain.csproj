@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DepartmentAggregate\" />
     <Folder Include="CartBasketAggregate\" />
+    <Folder Include="FinancialAid\" />
+    <Folder Include="RegistrarOfficeAggregate\Courses\" />
   </ItemGroup>
 
   <ItemGroup>
