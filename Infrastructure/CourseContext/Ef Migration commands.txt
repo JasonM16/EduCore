@@ -1,0 +1,3 @@
+﻿add-migration InitialCreate -Context CourseDbContext -OutputDir CourseContext\Migrations
+
+Update-Database -Context CourseDbContext

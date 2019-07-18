@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.CourseAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.CourseContext
 {
-    class CourseDbContext : DbContext
+    public class CourseDbContext : DbContext
     {
         public CourseDbContext(DbContextOptions options) : base(options)
         { }
 
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Prerequisite> Prerequisites { get; set; }
+        
 
-
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{            
+        //}
     }
 }

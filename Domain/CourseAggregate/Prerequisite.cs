@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.SharedKernel;
 
 namespace Domain.CourseAggregate
 {
-    public class Prerequisite
+    public class Prerequisite : BaseEntity
     {
+        public int? CourseId { get; set; }
+        public Course Course { get; set; }
     }
 }
