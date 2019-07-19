@@ -3,24 +3,45 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.CourseContext.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class MakeCoursePrerequisiteACourse : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Courses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CourseName = table.Column<string>(nullable: true),
-                    DepartmentName = table.Column<string>(nullable: true),
-                    CourseNumber = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
-                });
+            migrationBuilder.DropTable(
+                name: "Prerequisites");
+
+            migrationBuilder.AddColumn<int>(
+                name: "CourseId",
+                table: "Courses",
+                nullable: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_CourseId",
+                table: "Courses",
+                column: "CourseId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Courses_Courses_CourseId",
+                table: "Courses",
+                column: "CourseId",
+                principalTable: "Courses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Courses_Courses_CourseId",
+                table: "Courses");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Courses_CourseId",
+                table: "Courses");
+
+            migrationBuilder.DropColumn(
+                name: "CourseId",
+                table: "Courses");
 
             migrationBuilder.CreateTable(
                 name: "Prerequisites",
@@ -45,15 +66,6 @@ namespace Infrastructure.CourseContext.Migrations
                 name: "IX_Prerequisites_CourseId",
                 table: "Prerequisites",
                 column: "CourseId");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Prerequisites");
-
-            migrationBuilder.DropTable(
-                name: "Courses");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.CourseAggregate;
+﻿using System;
+using Domain.CourseAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.CourseContext
@@ -8,12 +9,12 @@ namespace Infrastructure.CourseContext
         public CourseDbContext(DbContextOptions options) : base(options)
         { }
 
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Prerequisite> Prerequisites { get; set; }
+        public DbSet<Course> Courses { get; set; }        
         
-
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{            
-        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Course>()
+                .HasData(SeedData.GetCourseData());
+        }
     }
 }

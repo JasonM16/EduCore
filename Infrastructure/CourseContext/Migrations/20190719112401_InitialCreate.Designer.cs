@@ -4,14 +4,16 @@ using Infrastructure.CourseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.CourseContext.Migrations
 {
     [DbContext(typeof(CourseDbContext))]
-    partial class CourseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190719112401_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace Infrastructure.CourseContext.Migrations
 
                     b.Property<string>("CourseDescription");
 
-                    b.Property<int?>("CourseId");
-
                     b.Property<string>("CourseName");
 
                     b.Property<string>("CourseNumber");
@@ -38,8 +38,6 @@ namespace Infrastructure.CourseContext.Migrations
                     b.Property<string>("DepartmentCode");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("Courses");
 
@@ -23860,9 +23858,24 @@ namespace Infrastructure.CourseContext.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.CourseAggregate.Course", b =>
+            modelBuilder.Entity("Domain.CourseAggregate.Prerequisite", b =>
                 {
-                    b.HasOne("Domain.CourseAggregate.Course")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CourseId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Prerequisites");
+                });
+
+            modelBuilder.Entity("Domain.CourseAggregate.Prerequisite", b =>
+                {
+                    b.HasOne("Domain.CourseAggregate.Course", "Course")
                         .WithMany("PrerequisiteCourses")
                         .HasForeignKey("CourseId");
                 });

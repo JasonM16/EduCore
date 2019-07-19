@@ -6,8 +6,10 @@ namespace Domain.CourseAggregate
     public class Course : BaseEntity
     {
         public string CourseName { get; set; }
-        public string DepartmentName { get; set; }
         public string CourseNumber { get; set; }
-        public ICollection<Prerequisite> PrerequisiteCourses { get; set; } = new HashSet<Prerequisite>();
+        public string DepartmentCode { get; set; }        
+        public string CourseDescription { get; set; }
+        public int Credits { get; set; }
+        public ICollection<Course> PrerequisiteCourses { get; set; } = new HashSet<Course>();
     }
 }

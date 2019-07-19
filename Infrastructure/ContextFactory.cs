@@ -10,7 +10,8 @@ namespace Infrastructure
         {
             var optionsBuilder = new DbContextOptionsBuilder<T>();
 
-            optionsBuilder.UseSqlServer($"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog={typeof(T).Name};Integrated Security=True;MultipleActiveResultSets=True");
+            if(!optionsBuilder.IsConfigured)
+                optionsBuilder.UseSqlServer($"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog={typeof(T).Name};Integrated Security=True;MultipleActiveResultSets=True");
 
             return (T)Activator.CreateInstance(typeof(T), optionsBuilder.Options);
         }
